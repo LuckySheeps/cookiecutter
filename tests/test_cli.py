@@ -221,8 +221,9 @@ def test_user_config_recurse_submodules(mocker, cli_runner, user_config_path):
     mock_cookiecutter = mocker.patch('cookiecutter.cli.cookiecutter')
 
     template_path = 'tests/fake-repo-pre/'
-    result = cli_runner(template_path, '--config-file', user_config_path,
-                        '--recurse-submodules')
+    result = cli_runner(
+        template_path, '--config-file', user_config_path, '--recurse-submodules'
+    )
 
     assert result.exit_code == 0
     mock_cookiecutter.assert_called_once_with(
@@ -240,7 +241,9 @@ def test_user_config_recurse_submodules(mocker, cli_runner, user_config_path):
         password=None,
         directory=None,
         accept_hooks=True,
+        keep_project_on_failure=False,
     )
+
 
 @pytest.mark.usefixtures('remove_fake_project_dir')
 def test_run_cookiecutter_on_overwrite_if_exists_and_replay(
@@ -269,7 +272,6 @@ def test_run_cookiecutter_on_overwrite_if_exists_and_replay(
         password=None,
         directory=None,
         accept_hooks=True,
-        keep_project_on_failure=False,
     )
 
 
@@ -329,7 +331,6 @@ def test_cli_output_dir(mocker, cli_runner, output_dir_flag, output_dir) -> None
         password=None,
         directory=None,
         accept_hooks=True,
-        keep_project_on_failure=False,
     )
 
 
@@ -375,7 +376,6 @@ def test_user_config(mocker, cli_runner, user_config_path) -> None:
         password=None,
         directory=None,
         accept_hooks=True,
-        keep_project_on_failure=False,
     )
 
 
@@ -407,7 +407,6 @@ def test_default_user_config_overwrite(mocker, cli_runner, user_config_path) -> 
         password=None,
         directory=None,
         accept_hooks=True,
-        keep_project_on_failure=False,
     )
 
 
@@ -434,7 +433,6 @@ def test_default_user_config(mocker, cli_runner) -> None:
         password=None,
         directory=None,
         accept_hooks=True,
-        keep_project_on_failure=False,
     )
 
 
@@ -577,8 +575,7 @@ def test_debug_file_non_verbose(cli_runner, debug_file) -> None:
     assert debug_file.exists()
 
     context_log = (
-        "DEBUG cookiecutter.main: context_file is "
-        "tests/fake-repo-pre/cookiecutter.json"
+        "DEBUG cookiecutter.main: context_file is tests/fake-repo-pre/cookiecutter.json"
     )
     assert context_log in debug_file.read_text()
     assert context_log not in result.output
@@ -604,8 +601,7 @@ def test_debug_file_verbose(cli_runner, debug_file) -> None:
     assert debug_file.exists()
 
     context_log = (
-        "DEBUG cookiecutter.main: context_file is "
-        "tests/fake-repo-pre/cookiecutter.json"
+        "DEBUG cookiecutter.main: context_file is tests/fake-repo-pre/cookiecutter.json"
     )
     assert context_log in debug_file.read_text()
     assert context_log in result.output
